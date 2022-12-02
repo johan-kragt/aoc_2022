@@ -1,7 +1,7 @@
 extern crate core;
 
-mod day1;
 pub mod reader;
+mod day1;
 use day1::day1;
 mod day2;
 use day2::day2;
