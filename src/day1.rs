@@ -1,6 +1,4 @@
-use std::fs::File;
-use std::io::{self, BufRead};
-use std::path::Path;
+use crate::reader::read_lines;
 
 pub fn day1() {
     println!("\nDay {}:", 1);
@@ -28,14 +26,6 @@ pub fn day1() {
         total_calories.sort();
         println!("{}", total_calories.iter().rev().take(3).sum::<u32>())
     }
-}
-
-fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
-where
-    P: AsRef<Path>,
-{
-    let file = File::open(filename)?;
-    Ok(io::BufReader::new(file).lines())
 }
 
 struct Elf {

@@ -1,6 +1,4 @@
-use std::fs::File;
-use std::io::{self, BufRead};
-use std::path::Path;
+use crate::reader::read_lines;
 
 pub fn day2() {
     println!("\nDay {}:", 2);
@@ -11,7 +9,7 @@ pub fn day2() {
             if let Ok(ip) = line {
                 let chars: Vec<char> = ip.chars().collect();
                 matches.push(Match {
-                    left: chars[0],
+                    left: Item::from_char(chars[0]),
                     right: chars[2],
                 })
             }
@@ -27,69 +25,91 @@ pub fn day2() {
     }
 }
 
-fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
-where
-    P: AsRef<Path>,
-{
-    let file = File::open(filename)?;
-    Ok(io::BufReader::new(file).lines())
+enum Item {
+    ROCK,
+    PAPER,
+    SCISSORS,
 }
 
-struct Match {
-    left: char,
-    right: char,
-}
+impl Item {
+    fn from_char(c: char) -> Item {
+        match c {
+            'A' => Item::ROCK,
+            'X' => Item::ROCK,
+            'B' => Item::PAPER,
+            'Y' => Item::PAPER,
+            'C' => Item::SCISSORS,
+            'Z' => Item::SCISSORS,
+            _ => panic!("Could not map to gameItem")
+        }
+    }
 
-impl Match {
-    fn response_points(&self) -> u32 {
-        match self.right {
-            'X' => {
-                1 + match self.left {
-                    'A' => 3,
-                    'C' => 6,
-                    _ => 0,
+    fn points_against(&self, counter: &Item) -> u32 {
+        match self {
+            Item::ROCK => {
+                1 + match counter {
+                    Item::ROCK => 3,
+                    Item::PAPER => 0,
+                    Item::SCISSORS => 6
                 }
             }
-            'Y' => {
-                2 + match self.left {
-                    'A' => 6,
-                    'B' => 3,
-                    _ => 0,
+            Item::PAPER => {
+                2 + match counter {
+                    Item::ROCK => 6,
+                    Item::PAPER => 3,
+                    Item::SCISSORS => 0,
                 }
             }
-            _ => {
-                3 + match self.left {
-                    'C' => 3,
-                    'B' => 6,
-                    _ => 0,
+            Item::SCISSORS => {
+                3 + match counter {
+                    Item::ROCK => 0,
+                    Item::PAPER => 6,
+                    Item::SCISSORS => 3,
                 }
             }
         }
     }
 
+    fn winning_item(&self) -> Item {
+        match self {
+            Item::ROCK => Item::PAPER,
+            Item::PAPER => Item::SCISSORS,
+            Item::SCISSORS => Item::ROCK
+        }
+    }
+
+    fn losing_item(&self) -> Item {
+        match self {
+            Item::ROCK => Item::SCISSORS,
+            Item::PAPER => Item::ROCK,
+            Item::SCISSORS => Item::PAPER
+        }
+    }
+
+    fn draw_item(&self) -> Item {
+        match self {
+            Item::ROCK => Item::ROCK,
+            Item::PAPER => Item::PAPER,
+            Item::SCISSORS => Item::SCISSORS
+        }
+    }
+}
+
+struct Match {
+    left: Item,
+    right: char
+}
+
+impl Match {
+    fn response_points(&self) -> u32 {
+        Item::from_char(self.right).points_against(&self.left)
+    }
+
     fn strategy_points(&self) -> u32 {
         match self.right {
-            'X' => {
-                0 + match self.left {
-                    'A' => 3,
-                    'B' => 1,
-                    _ => 2,
-                }
-            }
-            'Y' => {
-                3 + match self.left {
-                    'A' => 1,
-                    'B' => 2,
-                    _ => 3,
-                }
-            }
-            _ => {
-                6 + match self.left {
-                    'A' => 2,
-                    'B' => 3,
-                    _ => 1,
-                }
-            }
+            'X' => self.left.losing_item().points_against(&self.left),
+            'Y' => self.left.draw_item().points_against(&self.left),
+            _ => self.left.winning_item().points_against(&self.left)
         }
     }
 }

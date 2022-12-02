@@ -1,3 +1,6 @@
+extern crate core;
+
+pub mod reader;
 mod day1;
 use day1::day1;
 mod day2;
