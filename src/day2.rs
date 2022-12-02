@@ -40,7 +40,7 @@ impl Item {
             'Y' => Item::PAPER,
             'C' => Item::SCISSORS,
             'Z' => Item::SCISSORS,
-            _ => panic!("Could not map to gameItem")
+            _ => panic!("Could not map to gameItem"),
         }
     }
 
@@ -50,7 +50,7 @@ impl Item {
                 1 + match counter {
                     Item::ROCK => 3,
                     Item::PAPER => 0,
-                    Item::SCISSORS => 6
+                    Item::SCISSORS => 6,
                 }
             }
             Item::PAPER => {
@@ -74,7 +74,7 @@ impl Item {
         match self {
             Item::ROCK => Item::PAPER,
             Item::PAPER => Item::SCISSORS,
-            Item::SCISSORS => Item::ROCK
+            Item::SCISSORS => Item::ROCK,
         }
     }
 
@@ -82,7 +82,7 @@ impl Item {
         match self {
             Item::ROCK => Item::SCISSORS,
             Item::PAPER => Item::ROCK,
-            Item::SCISSORS => Item::PAPER
+            Item::SCISSORS => Item::PAPER,
         }
     }
 
@@ -90,14 +90,14 @@ impl Item {
         match self {
             Item::ROCK => Item::ROCK,
             Item::PAPER => Item::PAPER,
-            Item::SCISSORS => Item::SCISSORS
+            Item::SCISSORS => Item::SCISSORS,
         }
     }
 }
 
 struct Match {
     left: Item,
-    right: char
+    right: char,
 }
 
 impl Match {
@@ -109,7 +109,7 @@ impl Match {
         match self.right {
             'X' => self.left.losing_item().points_against(&self.left),
             'Y' => self.left.draw_item().points_against(&self.left),
-            _ => self.left.winning_item().points_against(&self.left)
+            _ => self.left.winning_item().points_against(&self.left),
         }
     }
 }
