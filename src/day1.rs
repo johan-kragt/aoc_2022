@@ -1,8 +1,10 @@
 use crate::reader::read_lines;
+use colored::Colorize;
 
 pub fn day1() {
-    println!("\nDay {}:", 1);
-    if let Ok(lines) = read_lines("./data/day1.txt") {
+    let day = 1;
+    println!("{}{}{} ", "\nDay ".bold().green(), day.to_string().bold().red(), ":".bold().green());
+    if let Ok(lines) = read_lines(format!("./data/day{}.txt", day)) {
         let mut elves: Vec<Elf> = Vec::new();
         let mut elf = Elf::new();
         for line in lines {
@@ -22,9 +24,9 @@ pub fn day1() {
             .iter()
             .map(|e| e.total_calories())
             .collect::<Vec<u32>>();
-        println!("{}", total_calories.iter().max().unwrap());
+        println!("{}", total_calories.iter().max().unwrap().to_string().bright_white());
         total_calories.sort();
-        println!("{}", total_calories.iter().rev().take(3).sum::<u32>())
+        println!("{}", total_calories.iter().rev().take(3).sum::<u32>().to_string().bright_yellow())
     }
 }
 
