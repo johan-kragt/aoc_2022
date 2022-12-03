@@ -3,7 +3,7 @@ use colored::Colorize;
 
 pub fn day2() {
     let day = 2;
-    println!("{}{}{} ", "\nDay ".bold().green(), day.to_string().bold().red(), ":".bold().green());
+    println!("{}{}{} ", "\nDay ".bold().bright_green(), day.to_string().bold().bright_red(), ":".bold().bright_green());
     if let Ok(lines) = read_lines(format!("./data/day{}.txt", day)) {
         // Consumes the iterator, returns an (Optional) String
         let mut matches: Vec<Match> = Vec::new();
@@ -18,13 +18,18 @@ pub fn day2() {
         }
         println!(
             "{}",
-            matches.iter().map(|m| m.response_points()).sum::<u32>().to_string().bright_white()
+            to_total_points(&mut matches, |m| m.response_points()).to_string().bright_white()
         );
+
         println!(
             "{}",
-            matches.iter().map(|m| m.strategy_points()).sum::<u32>().to_string().bright_yellow()
+            to_total_points(&mut matches, |m| m.strategy_points()).to_string().bright_yellow()
         );
     }
+}
+
+fn to_total_points(matches: &mut Vec<Match>, match_mapper: fn(&Match) -> u32) -> u32 {
+    matches.iter().map(match_mapper).sum::<u32>()
 }
 
 enum Item {
