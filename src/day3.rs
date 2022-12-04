@@ -19,7 +19,7 @@ pub fn day3() {
         let mut total:u32 = 0;
         for i in 0..rucksacks.len() / 3 {
             let group = &rucksacks[(i * 3)..(i * 3) + 3];
-            for c in group[0].allItems.chars() {
+            for c in group[0].all_items.chars() {
                 if group[1].contains(&c) && group[2].contains(&c)  {
                     total += get_item_priority(c);
                     break;
@@ -45,7 +45,7 @@ fn get_item_priority(c: char) -> u32 {
 }
 
 struct Rucksack {
-    allItems: String,
+    all_items: String,
     compartement1: Vec<char>,
     compartement2: Vec<char>
 }
@@ -53,7 +53,7 @@ struct Rucksack {
 impl Rucksack {
     fn from_string(input: &str) -> Rucksack {
         Rucksack {
-            allItems: String::from(input),
+            all_items: String::from(input),
             compartement1: input[0..(input.len() / 2)].chars().collect::<Vec<char>>(),
             compartement2: input[(input.len() / 2)..].chars().collect::<Vec<char>>()
         }
