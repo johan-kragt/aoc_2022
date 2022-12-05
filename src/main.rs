@@ -9,10 +9,13 @@ mod day3;
 use day3::day3;
 mod day4;
 use day4::day4;
+mod day5;
+use day5::day5;
 
 fn main() {
     day1();
     day2();
     day3();
     day4();
+    day5();
 }
