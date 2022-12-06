@@ -11,6 +11,8 @@ mod day4;
 use day4::day4;
 mod day5;
 use day5::day5;
+mod day6;
+use day6::day6;
 
 fn main() {
     day1();
@@ -18,4 +20,5 @@ fn main() {
     day3();
     day4();
     day5();
+    day6();
 }
