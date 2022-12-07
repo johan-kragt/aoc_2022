@@ -62,7 +62,6 @@ pub fn day7() {
 
 #[derive(Debug)]
 struct Dir {
-    //name: String,
     files: Vec<File>,
     children: Vec<Rc<RefCell<Dir>>>,
     parent: Option<Rc<RefCell<Dir>>>,
@@ -71,18 +70,11 @@ struct Dir {
 impl Dir {
     pub fn new() -> Dir {
         return Dir {
-            //name: name,
             files: vec![],
             children: vec![],
             parent: None,
         };
     }
-
-    /*pub fn print(&self, indent: usize) {
-        println!("{:>width$} {}", &self.name, &self.size(), width = indent);
-        &self.children.iter()
-            .for_each(|f| f.borrow().print(indent + 2));
-    }*/
 
     pub fn size(&self) -> u32 {
         &self.files.iter().map(|f| f.size).sum::<u32>()
@@ -119,6 +111,5 @@ impl Dir {
 
 #[derive(Debug)]
 struct File {
-    //name:String,
     size: u32,
 }
