@@ -1,13 +1,27 @@
-use std::ops::Range;
-use std::str::FromStr;
 use crate::reader::read_lines;
 use colored::Colorize;
+use std::str::FromStr;
 
 pub fn day5() {
     let day = 5;
-    println!("{}{}{} ", "\nDay ".bold().bright_green(), day.to_string().bold().bright_red(), ":".bold().bright_green());
+    println!(
+        "{}{}{} ",
+        "\nDay ".bold().bright_green(),
+        day.to_string().bold().bright_red(),
+        ":".bold().bright_green()
+    );
     if let Ok(lines) = read_lines(format!("./data/day{}.txt", day)) {
-        let mut towers: [Vec<char>; 9] = [Vec::new(), Vec::new(), Vec::new(), Vec::new(), Vec::new(), Vec::new(), Vec::new(), Vec::new(), Vec::new()];
+        let mut towers: [Vec<char>; 9] = [
+            Vec::new(),
+            Vec::new(),
+            Vec::new(),
+            Vec::new(),
+            Vec::new(),
+            Vec::new(),
+            Vec::new(),
+            Vec::new(),
+            Vec::new(),
+        ];
         let mut linesvec: Vec<String> = Vec::new();
         for line in lines {
             if let Ok(ip) = line {
@@ -36,7 +50,10 @@ pub fn day5() {
                 towers9000[dst_tower].push(x);
             }
         }
-        let string = towers9000.iter().map(|v| v.last().unwrap()).collect::<String>();
+        let string = towers9000
+            .iter()
+            .map(|v| v.last().unwrap())
+            .collect::<String>();
         println!("{}", string.bright_white());
 
         let mut towers9001 = towers.clone();
@@ -57,7 +74,10 @@ pub fn day5() {
                 towers9001[dst_tower].push(x);
             }
         }
-        let string = towers9001.iter().map(|v| v.last().unwrap()).collect::<String>();
+        let string = towers9001
+            .iter()
+            .map(|v| v.last().unwrap())
+            .collect::<String>();
         println!("{}", string.bright_yellow());
     }
 }

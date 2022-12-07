@@ -3,7 +3,12 @@ use colored::Colorize;
 
 pub fn day1() {
     let day = 1;
-    println!("{}{}{} ", "\nDay ".bold().bright_green(), day.to_string().bold().bright_red(), ":".bold().bright_green());
+    println!(
+        "{}{}{} ",
+        "\nDay ".bold().bright_green(),
+        day.to_string().bold().bright_red(),
+        ":".bold().bright_green()
+    );
     if let Ok(lines) = read_lines(format!("./data/day{}.txt", day)) {
         let mut elves: Vec<Elf> = Vec::new();
         let mut elf = Elf::new();

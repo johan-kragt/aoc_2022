@@ -3,7 +3,12 @@ use colored::Colorize;
 
 pub fn day6() {
     let day = 6;
-    println!("{}{}{} ", "\nDay ".bold().bright_green(), day.to_string().bold().bright_red(), ":".bold().bright_green());
+    println!(
+        "{}{}{} ",
+        "\nDay ".bold().bright_green(),
+        day.to_string().bold().bright_red(),
+        ":".bold().bright_green()
+    );
     if let Ok(lines) = read_lines(format!("./data/day{}.txt", day)) {
         for line in lines {
             if let Ok(ip) = line {
@@ -33,7 +38,7 @@ pub fn day6() {
     }
 }
 
-fn array_shift(c: char,  chars: &mut[char]) {
+fn array_shift(c: char, chars: &mut [char]) {
     for i in 0..chars.len() - 1 {
         chars[chars.len() - (i + 1)] = chars[chars.len() - (i + 2)];
     }
@@ -43,11 +48,11 @@ fn array_shift(c: char,  chars: &mut[char]) {
 fn has_duplicates(array: &[char]) -> bool {
     for i in 0..array.len() - 1 {
         let check_char = &array[i];
-        for c in &array[(i+1)..(array.len())] {
+        for c in &array[(i + 1)..(array.len())] {
             if check_char == c {
                 return true;
             }
-         }
+        }
     }
     return false;
 }
