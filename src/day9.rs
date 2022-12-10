@@ -53,7 +53,7 @@ pub fn day9() {
                     follow(&mut between7, between6);
                     follow(&mut taillong, between7);
 
-                    let between = distance_between(head, tail);
+                    //let between = distance_between(head, tail);
                     //println!("HEAD: {}, {} | TAIL: {}, {} ==> {}, {}", head.0, head.1, tail.0, tail.1, between.0, between.1);
                     if !visited.contains(&tail) {
                         visited.push(tail);
@@ -71,7 +71,7 @@ pub fn day9() {
         let minY = visited.iter().map(|f| f.1).min().unwrap();
         let maxY = visited.iter().map(|f| f.1).max().unwrap();
         println!("{}, {}, {}, {}", minX, maxX, minY, maxY);*/
-        const minX: i32 = -126;
+        /*const minX: i32 = -126;
         const maxX: i32 = 70;
         const minY: i32 = -290;
         const maxY: i32 = 23;
@@ -89,7 +89,7 @@ pub fn day9() {
                 print!("{}", map[y][x]);
             }
             println!("");
-        }
+        }*/
     }
 }
 
